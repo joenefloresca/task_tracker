@@ -28,8 +28,3 @@ Route::controllers([
 ]);
 
 Route::resource('tasks', 'TaskController');
-
-
-
-
-

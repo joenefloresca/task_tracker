@@ -57,7 +57,7 @@
                 <li>
                     <a href="{{ url('home') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li> 
-                @endif
+               
                 
                 <li>
                     <a href="#"><i class="fa fa-credit-card"></i> <span class="nav-label">Tasks</span><span class="fa arrow"></span></a>
@@ -66,6 +66,7 @@
                         <li class="active"><a href="{{ url('tasks') }}">Tasks List</a></li>  
                     </ul>
                 </li>
+                 @endif
    
             </ul>
         </div>
