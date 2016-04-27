@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: task_tracker
 -- ------------------------------------------------------
@@ -82,7 +82,7 @@ CREATE TABLE `tasks` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,6 +91,7 @@ CREATE TABLE `tasks` (
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
+INSERT INTO `tasks` VALUES (1,'zasasa','2016-04-07 19:28:01','2016-04-07 19:28:01','asdf',NULL,1,'sdf','sdf','2016-04-27 17:05:53','2016-04-27 17:05:53');
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,6 +128,14 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (1,'Joene Floresca','$2y$10$5vuLHHvekpZ2/VxrDIZCmem557S9yhzPW.F77ZYcOe1aJVFuEXm.e',0,1775,'1775','IT','ufN23nT3fy7hNKjuQO1eovky6c9r0iNpGpFvVC565AOqu66xqPyahIVJddEy','2016-02-29 01:03:22','2016-03-14 02:05:21'),(2,'Raven','$2y$10$PYAHrxbwqwhJgWoUcNGjiudH.IaRUFgQrne0PogMcMhIiduK0fmCW',0,1935,'','',NULL,'2016-03-14 01:10:50','2016-03-14 01:10:50');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'task_tracker'
+--
+
+--
+-- Dumping routines for database 'task_tracker'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -137,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-26 22:41:14
+-- Dump completed on 2016-04-27 17:10:36

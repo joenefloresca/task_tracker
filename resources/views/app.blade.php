@@ -62,8 +62,8 @@
                 <li>
                     <a href="#"><i class="fa fa-credit-card"></i> <span class="nav-label">Tasks</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li class="active"><a href="{{ url('tasks/create') }}">Add Task</a></li>
-                        <li class="active"><a href="{{ url('tasks') }}">Tasks List</a></li>  
+                        <li class="active"><a href="{{ url('tasks') }}">Tasks List</a></li>
+                        <li class="active"><a href="{{ url('tasks/create') }}">Add Task</a></li>  
                     </ul>
                 </li>
                  @endif
@@ -142,6 +142,7 @@
     @yield('home')
     @yield('payment-create')
     @yield('reports-eosr')
+    @yield('task-create')
 
 </body>
 </html>
