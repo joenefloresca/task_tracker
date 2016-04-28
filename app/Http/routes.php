@@ -30,3 +30,5 @@ Route::controllers([
 Route::resource('tasks', 'TaskController');
 
 Route::get('tasks-list', 'TaskController@getTasksList');
+Route::get('generate-report', 'TaskController@generateReport');
+Route::get('generate-email', 'TaskController@generateEmail');

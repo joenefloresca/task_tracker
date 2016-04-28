@@ -15,6 +15,7 @@ use View;
 use Auth;
 use Datatables;
 use DB;
+use Mail;
 
 class TaskController extends Controller
 {
@@ -198,5 +199,61 @@ class TaskController extends Controller
        ->addColumn('action', function ($tasks) {
                 return "<button type='button' data-id='".$tasks->id."' class='btn btn-xs btn-success' data-toggle='modal' data-target='#myModal'>Details</button>";
             })->make(true);     
+    }
+
+    public function generateReport()
+    {
+      if(Auth::check() && Auth::user()->access_level == 1)
+      {
+        $tasks = Task::join('users', 'tasks.added_by', '=', 'users.id')
+            ->join('users AS x', 'x.id', '=', 'tasks.assigned_to')
+            ->select([
+              'tasks.id',
+              'tasks.task_description',
+              'tasks.start_timestamp',
+              'tasks.end_timestamp',
+              'tasks.status',
+              'users.name',
+              'x.name AS assign',
+              'tasks.created_at'
+              ])->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -8 HOUR)')->get();
+      }
+      else if(Auth::check())
+      {
+        $tasks = Task::join('users', 'tasks.added_by', '=', 'users.id')
+            ->join('users AS x', 'x.id', '=', 'tasks.assigned_to')
+            ->select([
+              'tasks.id',
+              'tasks.task_description',
+              'tasks.start_timestamp',
+              'tasks.end_timestamp',
+              'tasks.status',
+              'users.name',
+              'x.name AS assign',
+              'tasks.created_at'
+              ])->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -8 HOUR)')->get();
+      }
+
+      return json_encode($tasks);
+    }
+
+    public function generateEmail()
+    {
+      $body       = Input::get("body");
+      $supp_email = Input::get("supp_email");
+
+      $emails = [];
+
+      array_push($emails,$supp_email);
+
+      Mail::send('emails.message', 
+                    [
+                    'body' => $body,
+                    'name' => Auth::user()->name,
+                    'date' => date('l jS \of F Y h:i:s A')
+
+                    ], function ($m) use ($emails) {
+                    $m->to($emails, '')->subject('Daily Time Sheet');
+                });
     }
 }

@@ -156,7 +156,6 @@
                                         <th>Assigned to</th>
                                         <th>Date Created</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -164,6 +163,8 @@
                                 </tbody>
                             </table>
                             <button type="button" class="btn btn-success" id="generateReport">Generate</button>
+                            <button type="button" class="btn btn-primary" id="sendReport">Send Report</button>
+                            <input type="text" class="form-control" name="supp_email" id="supp_email" placeholder="Supervisor Email">
                         </div>
                     </div>
                 </div>
@@ -222,6 +223,52 @@ $(document).ready(function(){
                 location.reload(true);
             }
         });
+    });
+
+    $("#generateReport").click(function() {
+      $.ajax({
+            type : 'get',
+            url : 'generate-report', //Here you will fetch records 
+            success : function(result){
+                var myObj = $.parseJSON(result);
+                $.each(myObj, function(key,value) {
+                    var t = $('#SendTask').DataTable();
+                    t.row.add( [
+                        value.id,
+                        value.task_description,
+                        value.start_timestamp,
+                        value.end_timestamp,
+                        value.name,
+                        value.assign,
+                        value.created_at,
+                        value.status
+                    ] ).draw();
+                });
+
+                alert("Tasks from the last 8 hours generated.");
+            }
+        });
+    });
+
+    $("#sendReport").click(function() {
+        var table      = $('#SendTask').prop('outerHTML');
+        var supp_email = $('#supp_email').val();
+        if(supp_email != "")
+        {
+            $.ajax({
+                type : 'get',
+                url : 'generate-email', //Here you will fetch records 
+                data: {'body': table, 'supp_email' : supp_email},
+                success : function(result){
+                    alert("Email Sent.");
+                }
+            });
+        }
+        else
+        {
+            alert("Please enter supervisor's email before sending report.");
+        }
+        
     });
    
 }); 
