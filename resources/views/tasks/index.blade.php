@@ -2,13 +2,13 @@
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Tasks Form</h2>
+        <h2>My Tasks</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ url('home') }}">Home</a>
             </li>
             <li class="active">
-                <strong>Tasks Form</strong>
+                <strong>My Tasks List</strong>
             </li>
         </ol>
     </div>
@@ -21,116 +21,209 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5><small>Tasks Form</small></h5>
+                            <h5>My Tasks</small></h5>
                             <div class="ibox-tools">
+
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
-                                </a> 
+                                </a>
+                               
+                                
                                 <a class="close-link">
                                     <i class="fa fa-times"></i>
                                 </a>
+
                             </div>
                         </div>
+                        
+                        <!-- Modal -->
+                        <div id="myModal" class="modal fade" role="dialog">
+                          <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">My Task</h4>
+                              </div>
+                              <div class="modal-body">
+                                <div class="form-horizontal"  role="form">
+                                    <fieldset>
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">ID</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" id="task_id" name="task_id" readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">Description</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" id="task_description" name="task_description" readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">Start</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" id="task_start" name="task_start" readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">End</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" id="task_end" name="task_end" readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">Custom Time</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" id="task_custom" name="task_custom" readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">Added By</label>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" id="task_added" name="task_added" readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">Status</label>
+                                        <div class="col-lg-10">
+                                            <select class="form-control" name="task_status" id="task_status">
+                                                <option value=""></option>
+                                                <option value="Pending">Pending</option>
+                                                <option value="Done">Done</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    </fieldset>
+                                </div>
+                                <!-- <p id="model-taskid"></p>
+                                <p id="model-taskdesc"></p>
+                                <p id="model-start"></p>
+                                <p id="model-end"></p>
+                                <p id="model-custom"></p> -->
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" id="updateData">Save</button>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
                         <div class="ibox-content">
+                            <table id="MyTasks" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
-                            <form class="form-horizontal" id="payment-form" role="form" method="POST" action="{{ url('tasks') }}">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                @if (count($errors) > 0)
-                                <div class="alert alert-danger">
-                                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-                                <div class="flash-message">
-                                    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
-                                      @if(Session::has('alert-' . $msg))
-                                      <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
-                                      @endif
-                                    @endforeach
-                                </div>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Description</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Added By</th>
+                                        <th>Assigned to</th>
+                                        <th>Date Created</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
 
-                                <fieldset>
-                                    <legend>Tasks</legend>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <fieldset>
+                            <legend>Generate Task Report</legend>
+                        </fieldset>
+                        <div class="ibox-content">
+                            <table id="SendTask" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
-                                      <div class="form-group">
-                                            <label  class="col-sm-2 control-label">Task Description</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="task_description">
-                                            </div>
-                                      </div>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Description</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Added By</th>
+                                        <th>Assigned to</th>
+                                        <th>Date Created</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
 
-                                      <div class="form-group">
-                                            <label  class="col-sm-2 control-label">Start Timestamp</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="start_timestamp">
-                                            </div>
-                                      </div>
-
-                                      <div class="form-group">
-                                            <label  class="col-sm-2 control-label">End Timestamp</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="end_timestamp">
-                                            </div>
-                                      </div>
-
-                                      <div class="form-group">
-                                            <label  class="col-sm-2 control-label">Fixed Timestamp</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="fixed_timestamp">
-                                            </div>
-                                      </div>
-
-                                      <div class="form-group">
-                                            <label  class="col-sm-2 control-label">Added By</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="added_by">
-                                            </div>
-                                      </div>
-
-                                      <div class="form-group">
-                                            <label  class="col-sm-2 control-label">Assigned To</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="assigned_to">
-                                            </div>
-                                      </div>
-                                      <div class="form-group">
-                                            <label  class="col-sm-2 control-label">Status</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="status">
-                                            </div>
-                                      </div>
-                                      <div class="form-group">
-                                            <label  class="col-sm-2 control-label">Signature</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="signature">
-                                            </div>
-                                      </div> 
-
-                                </fieldset>
-                                
-
-                                <div class="form-group">
-                                    <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-primary" type="submit">Submit</button>
-                                    </div>
-                                </div>
-
-                            </form>
-
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-success" id="generateReport">Generate</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 @endsection
-@section('task-create')
+@section('tasks-index')
 <script>
-$('#desc, #ques').summernote();
+$(document).ready(function(){
+    $('#MyTasks').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: 'tasks-list',
+        columns: [
+            {data: 'id', name: 'tasks.id'},
+            {data: 'task_description', name: 'tasks.task_description'},
+            {data: 'start_timestamp', name: 'tasks.start_timestamp'},
+            {data: 'end_timestamp', name: 'tasks.end_timestamp'},
+            {data: 'name', name: 'users.name'},
+            {data: 'assign', name: 'x.name'},
+            {data: 'created_at', name: 'tasks.created_at'},
+            {data: 'status', name: 'tasks.status'},
+            {data: 'action', name: 'action'}
+        ]
+    });
+
+    $('#myModal').on('show.bs.modal', function (e) {
+        var uniqueId = $(e.relatedTarget).data('id');
+        //Ajax Method
+        $.ajax({
+            type : 'get',
+            url : 'tasks/'+uniqueId, //Here you will fetch records 
+            success : function(response){
+                $('.modal-title').html('Task ID: ' + uniqueId);
+                $('#task_id').val(uniqueId);
+                $('#task_description').val(response.task_description);
+                $('#task_start').val(response.start_timestamp);
+                $('#task_end').val(response.end_timestamp);
+                $('#task_custom').val(response.fixed_timestamp);
+                $('#task_added').val(response.name);
+                $('#task_status').val(response.status);
+            }
+        });
+    });
+
+    $('#updateData').on('click', function() {
+        var id = $("#task_id").val();
+        var status = $('#task_status').val();
+
+        $.ajax({
+            type : 'put',
+            url : 'tasks/'+id, //Here you will fetch records 
+            data: {'id': id, 'status': status},
+            success : function(response){
+                alert(response);
+                location.reload(true);
+            }
+        });
+    });
+   
+}); 
 </script>           
 @endsection
-
-

@@ -64,39 +64,33 @@
                                       <div class="form-group">
                                             <label  class="col-sm-2 control-label">Start Timestamp</label>
                                             <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="start_timestamp">
+                                                <input type="text" class="form-control datetimepicker" name="start_timestamp">
                                             </div>
                                       </div>
                                       <div class="form-group">
                                             <label  class="col-sm-2 control-label">End Timestamp</label>
                                             <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="end_timestamp">
+                                                <input type="text" class="form-control datetimepicker" name="end_timestamp">
                                             </div>
                                       </div>
-                                      <div class="form-group">
-                                            <label  class="col-sm-2 control-label">Fixed Timestamp</label>
+                                      
+                                      <div class="form-group" style="">
+                                            <label  class="col-sm-2 control-label">Custom Timestamp</label>
                                             <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="fixed_timestamp">
+                                                <input type="text" class="form-control" name="fixed_timestamp" placeholder="e.g Daily">
                                             </div>
                                       </div>
-                                      <div class="form-group">
-                                            <label  class="col-sm-2 control-label">Added By</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="added_by">
-                                            </div>
-                                      </div>
-                                      <div class="form-group">
+                                      
+                                      @if(Auth::check() && Auth::user()->access_level == 1)
+                                        <div class="form-group">
                                             <label  class="col-sm-2 control-label">Assigned To</label>
                                             <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="assigned_to">
+                                                {!! Form::select('assigned_to', $users, '',array('class' => 'form-control', 'id' => 'assigned_to', 'required' => 'required')) !!}
                                             </div>
-                                      </div>
-                                      <div class="form-group">
-                                            <label  class="col-sm-2 control-label">Status</label>
-                                            <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="status">
-                                            </div>
-                                      </div>
+                                        </div>
+                                      @endif
+                                      
+
                                       <div class="form-group">
                                             <label  class="col-sm-2 control-label">Signature</label>
                                             <div class="col-lg-10">
@@ -119,9 +113,9 @@
             </div>
         </div>
 @endsection
-@section('metrics-create')
+@section('tasks-create')
 <script>
-$('#desc, #ques').summernote();
+jQuery('.datetimepicker').datetimepicker();
 </script>           
 @endsection
 

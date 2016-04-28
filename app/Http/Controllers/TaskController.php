@@ -25,7 +25,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-         //
+         return view('tasks.index');
     }
 
     /**
@@ -35,8 +35,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
-    
+        $users = array('' => 'Choose One') + DB::table('users')->lists('name','id');
+        return view('tasks.create')->with('users', $users);
     }
 
     /**
@@ -47,42 +47,49 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = array(
-          'task_description '       => 'required',
-          'start_timestamp'         => 'required',
-          'end_timestamp'           => 'required',
-          'fixed_timestamp'         => 'required',
-          'added_by'                => 'required',
-          'assigned_to'             => 'required',
-          'status'                  => 'required',
-          'signature'               => 'required',
-      );
-      $validator = Validator::make(Input::all(), $rules);
-      if ($validator->fails())
+
+      if(Auth::check())
       {
-          return Redirect::to('tasks/create')->withErrors($validator);
+        $rules = array(
+            //'task_description ' => 'required',
+        );
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails())
+        {
+            return Redirect::to('tasks/create')->withErrors($validator);
+        }
+        else
+        {
+            $task = new Task();
+            $task->task_description            = Input::get("task_description");
+            $task->start_timestamp             = Input::get("start_timestamp");
+            $task->end_timestamp               = Input::get("end_timestamp");
+            $task->fixed_timestamp             = Input::get("fixed_timestamp");
+            $task->added_by                    = Auth::user()->id;
+            $task->assigned_to                 = Input::get("assigned_to");
+            $task->signature                   = Input::get("signature");  
+            if($task->save())
+            {
+                Session::flash('alert-success', 'Form Submitted Successfully.');
+            }
+            else
+            {
+                Session::flash('alert-danger', 'Form Submitted Successfully.');
+            }
+
+            return Redirect::to('tasks/create');
+        }
       }
       else
       {
-          $task = new Task();
-          $task->task_description            = Input::get("task_description");
-          $task->start_timestamp             = Input::get("start_timestamp");
-          $task->end_timestamp               = Input::get("end_timestamp");
-          $task->fixed_timestamp             = Input::get("fixed_timestamp");
-          $task->added_by                    = Input::get("potential_points");
-          $task->assigned_to                 = Input::get("assigned_to");
-          $task->status                      = Input::get("status");
-          $task->signature                   = Input::get("signature");  
-          if($task->save())
-          {
-              Session::flash('alert-success', 'Form Submitted Successfully.');
-          }
-          else
-          {
-              Session::flash('alert-danger', 'Form Submitted Successfully.');
-          }
-          return Redirect::to('tasks/create');
+        Auth::logout();
+        Session::flash('warning-danger', 'Login session has expired. Please login.');
+        return Redirect::to('auth/login');
       }
+
+      
     }
 
     /**
@@ -93,7 +100,17 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+        return $tasks = Task::join('users', 'tasks.added_by', '=', 'users.id')
+            ->select([
+              'tasks.id',
+              'tasks.task_description',
+              'tasks.start_timestamp',
+              'tasks.end_timestamp',
+              'tasks.fixed_timestamp',
+              'tasks.status',
+              'users.name',
+              'tasks.created_at'
+              ])->where('tasks.id', '=', $id)->first();
     }
 
     /**
@@ -116,7 +133,17 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $status       = Input::get("status");
+        $task         = Task::find($id);
+        $task->status = $status;
+        if($task->save())
+        {
+          return "Task Successfully Updated.";
+        }
+        else
+        {
+          return "Task Update Failed. Please try again.";
+        }
     }
 
     /**
@@ -128,5 +155,48 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getTasksList()
+    {
+      if(Auth::check() && Auth::user()->access_level == 1)
+      {
+        $tasks = Task::join('users', 'tasks.added_by', '=', 'users.id')
+            ->join('users AS x', 'x.id', '=', 'tasks.assigned_to')
+            ->select([
+              'tasks.id',
+              'tasks.task_description',
+              'tasks.start_timestamp',
+              'tasks.end_timestamp',
+              'tasks.status',
+              'users.name',
+              'x.name AS assign',
+              'tasks.created_at'
+              ]);
+      }
+      else if(Auth::check())
+      {
+        $tasks = Task::join('users', 'tasks.added_by', '=', 'users.id')
+            ->join('users AS x', 'x.id', '=', 'tasks.assigned_to')
+            ->select([
+              'tasks.id',
+              'tasks.task_description',
+              'tasks.start_timestamp',
+              'tasks.end_timestamp',
+              'tasks.status',
+              'users.name',
+              'x.name AS assign',
+              'tasks.created_at'
+              ])->where('tasks.assigned_to', '=', Auth::user()->id);
+      }
+      else
+      {
+        $tasks = "";
+      }
+      
+       return Datatables::of($tasks)
+       ->addColumn('action', function ($tasks) {
+                return "<button type='button' data-id='".$tasks->id."' class='btn btn-xs btn-success' data-toggle='modal' data-target='#myModal'>Details</button>";
+            })->make(true);     
     }
 }

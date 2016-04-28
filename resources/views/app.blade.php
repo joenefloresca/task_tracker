@@ -140,9 +140,8 @@
     </script>
 
     @yield('home')
-    @yield('payment-create')
-    @yield('reports-eosr')
-    @yield('task-create')
+    @yield('tasks-create')
+    @yield('tasks-index')
 
 </body>
 </html>
