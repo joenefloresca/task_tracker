@@ -30,6 +30,11 @@
     <link href="{{ asset('css/bootstrapValidator.css') }}" rel="stylesheet">
 
     <script src="{{ asset('js/jquery-2.1.1.js') }}"></script>
+    <style type="text/css">
+    /*th { font-size: 13px; }
+    td { font-size: 12px; }*/
+    </style>
+    
 
 
 </head>
@@ -138,8 +143,16 @@
     <script src="{{ asset('js/plugins/dataTables/dataTables.responsive.js') }}"></script>
     <script src="{{ asset('js/plugins/dataTables/dataTables.tableTools.min.js') }}"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    <!-- Flot -->
+    <script src="{{ asset('js/plugins/flot/jquery.flot.js') }}"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.tooltip.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.resize.js') }}"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.pie.js') }}"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.time.js') }}"></script>
+
     <script>
-        $("body").addClass("skin-3");
+        $("body").addClass("skin-2");
     </script>
 
     @yield('home')
