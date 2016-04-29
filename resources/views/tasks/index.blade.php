@@ -177,6 +177,12 @@ $(document).ready(function(){
     $('#MyTasks').DataTable({
         processing: true,
         serverSide: true,
+        ajax: 'job-index',
+        "order": [[ 0, "desc" ]],
+        "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+        },
         ajax: 'tasks-list',
         columns: [
             {data: 'id', name: 'tasks.id'},
@@ -231,8 +237,16 @@ $(document).ready(function(){
             url : 'generate-report', //Here you will fetch records 
             success : function(result){
                 var myObj = $.parseJSON(result);
+                var t = $('#SendTask').DataTable({
+                    "order": [[ 0, "desc" ]],
+                    "dom": 'T<"clear">lfrtip',
+                    "tableTools": {
+                        "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+                    }
+                });
                 $.each(myObj, function(key,value) {
-                    var t = $('#SendTask').DataTable();
+                    
+
                     t.row.add( [
                         value.id,
                         value.task_description,
