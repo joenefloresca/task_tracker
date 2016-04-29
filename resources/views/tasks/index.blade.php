@@ -184,6 +184,15 @@ $(document).ready(function(){
             "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
         },
         ajax: 'tasks-list',
+         "createdRow": function ( row, data, index ) {
+            if (data.status == "Pending") {
+                $('td', row).eq(7).addClass('text-warning');
+            }
+            else
+            {
+                $('td', row).eq(7).addClass('text-success');
+            }
+        },
         columns: [
             {data: 'id', name: 'tasks.id'},
             {data: 'task_description', name: 'tasks.task_description'},
@@ -219,7 +228,6 @@ $(document).ready(function(){
     $('#updateData').on('click', function() {
         var id = $("#task_id").val();
         var status = $('#task_status').val();
-
         $.ajax({
             type : 'put',
             url : 'tasks/'+id, //Here you will fetch records 
@@ -245,8 +253,6 @@ $(document).ready(function(){
                     }
                 });
                 $.each(myObj, function(key,value) {
-                    
-
                     t.row.add( [
                         value.id,
                         value.task_description,

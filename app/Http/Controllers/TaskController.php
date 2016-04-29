@@ -24,6 +24,11 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+          $this->middleware('auth');
+    }
+  
     public function index()
     {
          return view('tasks.index');
@@ -63,13 +68,22 @@ class TaskController extends Controller
         }
         else
         {
+            if(Auth::user()->access_level == 1)
+            {
+              $assign = Input::get("assigned_to");
+            }
+            else
+            {
+              $assign = Auth::user()->id;
+            }
+
             $task = new Task();
             $task->task_description            = Input::get("task_description");
             $task->start_timestamp             = Input::get("start_timestamp");
             $task->end_timestamp               = Input::get("end_timestamp");
             $task->fixed_timestamp             = Input::get("fixed_timestamp");
             $task->added_by                    = Auth::user()->id;
-            $task->assigned_to                 = Input::get("assigned_to");
+            $task->assigned_to                 = $assign;
             $task->signature                   = Input::get("signature");  
             if($task->save())
             {

@@ -44,7 +44,10 @@
                             <!-- <img class="img-circle" src="{{asset('img/profile_small.jpg')}}"> -->
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">@if(Auth::check()){{Auth::user()->name}}@endif</strong>
+                            <span class="clear"> <span class="block m-t-xs"> 
+                                <strong class="font-bold">@if(Auth::check()){{Auth::user()->name}}@endif</strong>
+                                @if(Auth::check() && Auth::user()->access_level == 1) Administrator @endif <br/>
+                                
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a href="{{ url('auth/logout') }}">Logout</a></li>
                         </ul>
