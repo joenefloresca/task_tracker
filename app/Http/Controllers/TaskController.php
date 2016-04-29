@@ -270,4 +270,42 @@ class TaskController extends Controller
                     $m->to($emails, '')->subject('Daily Time Sheet');
                 });
     }
+
+    public function getBarChart()
+    {
+        $today = date('Y-m-d');
+        $last5 = date('Y-m-d',(strtotime ('-1 day',strtotime ($today))));
+        $last4 = date('Y-m-d',(strtotime ('-1 day',strtotime ($last5))));
+        $last3 = date('Y-m-d',(strtotime ('-1 day',strtotime ($last4))));
+        $last2 = date('Y-m-d',(strtotime ('-1 day',strtotime ($last3))));
+        $last1 = date('Y-m-d',(strtotime ('-1 day',strtotime ($last2))));
+
+        $q6 = "SELECT COUNT(*) as total6 from tasks where created_at like '$today%';";
+        $data6 = DB::connection('mysql')->select($q6);
+
+        $q5 = "SELECT COUNT(*) as total5 from tasks where created_at like '$last5%';";
+        $data5 = DB::connection('mysql')->select($q5);
+
+        $q4 = "SELECT COUNT(*) as total4 from tasks where created_at like '$last4%';";
+        $data4 = DB::connection('mysql')->select($q4);
+
+        $q3 = "SELECT COUNT(*) as total3 from tasks where created_at like '$last3%';";
+        $data3 = DB::connection('mysql')->select($q3);
+
+        $q2 = "SELECT COUNT(*) as total2 from tasks where created_at like '$last2%';";
+        $data2 = DB::connection('mysql')->select($q2);
+
+        $q1 = "SELECT COUNT(*) as total1 from tasks where created_at like '$last1%';";
+        $data1 = DB::connection('mysql')->select($q1);
+
+        return array(
+            'today' => array($today,$data6[0]->total6),
+            'last5' => array($last5,$data5[0]->total5),
+            'last4' => array($last4,$data4[0]->total4),
+            'last3' => array($last3,$data3[0]->total3),
+            'last2' => array($last2,$data2[0]->total2),
+            'last1' => array($last1,$data1[0]->total1)
+        );
+       
+    }
 }

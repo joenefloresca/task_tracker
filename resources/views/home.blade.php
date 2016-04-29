@@ -60,7 +60,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Total Donations Per Agent</h5>
+                    <h5>Total Tasks For The Last 6 Days</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -94,19 +94,11 @@
 </div>
 @endsection
 @section('home')
-<!-- Flot -->
-<script src="{{ asset('js/plugins/flot/jquery.flot.js') }}"></script>
-<script src="{{ asset('js/plugins/flot/jquery.flot.tooltip.min.js') }}"></script>
-<script src="{{ asset('js/plugins/flot/jquery.flot.resize.js') }}"></script>
-<script src="{{ asset('js/plugins/flot/jquery.flot.pie.js') }}"></script>
-<script src="{{ asset('js/plugins/flot/jquery.flot.time.js') }}"></script>
 
-<!-- Flot demo data -->
 
 <script>
 $(document).ready(function(){
     
-
 $.ajax({
     url: "get-barchart",
     type: 'GET',
@@ -171,79 +163,6 @@ $.ajax({
 }});
 
 
-$.ajax({
-    url: "get-barchart2",
-    type: 'GET',
-    success: function(result){
-    var ticks = {};
-    var data = {};
-    $.each(result, function(key,value) {
-        ticks[key] = value.name;
-        data[key] = value.cnt;
-    });
-
-    var tick_arr = $.map(ticks, function(value, index) {
-        var obj=[[index,value]];
-        return obj;
-    });
-    console.log( tick_arr ); 
-
-    var data_arr = $.map(data, function(value, index) {
-        var obj=[[index,value]];
-        return obj;
-    });
-    console.log( data_arr );
-
-    var barOptions = {
-        series: {
-            lines: {
-                show: true,
-                lineWidth: 2,
-                fill: true,
-                fillColor: {
-                    colors: [{
-                        opacity: 0.0
-                    }, {
-                        opacity: 0.0
-                    }]
-                }
-            }
-        },
-        xaxis: {
-            ticks: tick_arr
-        },
-        yaxis: {                
-            tickFormatter: function (v, axis) {
-                return "£ " + v;
-            }
-        },
-        colors: ["#1ab394"],
-        grid: {
-            color: "#999999",
-            hoverable: true,
-            clickable: true,
-            tickColor: "#D4D4D4",
-            borderWidth:0
-        },
-        legend: {
-            show: false
-        },
-        tooltip: true,
-        tooltipOpts: {
-            content: "x: %x, y: %y"
-        }
-    };
-    var barData = {
-        label: "bar",
-        data: data_arr
-    };
-    $.plot($("#flot-line-chart"), [barData], barOptions);
-
-
-    
-    
-
-}});
 
 }); 
 </script>
