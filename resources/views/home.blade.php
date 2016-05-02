@@ -7,9 +7,6 @@
             <li>
                 <a href="index-2.html">Home</a>
             </li>
-            <li>
-                <a>Graphs</a>
-            </li>
             <li class="active">
                 <strong>Dashboard</strong>
             </li>
@@ -26,7 +23,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Total Donations In Last 6 Days</h5>
+                    <h5>Total Tasks In Last 6 Days</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
