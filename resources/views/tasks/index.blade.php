@@ -22,42 +22,37 @@
                     <div class="ibox-title">
                         <h5>My Daily Tasks</small></h5>
                         <div class="ibox-tools">
-
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
-                           
-                            
                             <a class="close-link">
                                 <i class="fa fa-times"></i>
                             </a>
-
                         </div>
                     </div>
                     <div class="ibox-content">
-                            <table id="MyDailyTasks" class="table table-striped table-bordered" cellspacing="0" width="100%">
-
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Description</th>
-                                        <th>Start</th>
-                                        <th>End</th>
-                                        <th>Added By</th>
-                                        <th>Assigned to</th>
-                                        <th>Date Created</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
+                        <table id="MyDailyTasks" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Description</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>Added By</th>
+                                    <th>Assigned to</th>
+                                    <th>Date Created</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            </div>
 
-
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
 
@@ -142,11 +137,7 @@
 
                                     </fieldset>
                                 </div>
-                                <!-- <p id="model-taskid"></p>
-                                <p id="model-taskdesc"></p>
-                                <p id="model-start"></p>
-                                <p id="model-end"></p>
-                                <p id="model-custom"></p> -->
+                             
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -159,7 +150,6 @@
 
                         <div class="ibox-content">
                             <table id="MyTasks" class="table table-striped table-bordered" cellspacing="0" width="100%">
-
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -179,40 +169,51 @@
                             </table>
                         </div>
 
-                        <fieldset>
-                            <legend>Generate Task Report</legend>
-                        </fieldset>
-
-                        <div class="ibox-content">
-                            <table id="SendTask" class="table table-striped table-bordered" cellspacing="0" width="100%">
-
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Description</th>
-                                        <th>Start</th>
-                                        <th>End</th>
-                                        <th>Added By</th>
-                                        <th>Assigned to</th>
-                                        <th>Date Created</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                </tbody>
-                            </table>
-                            <button type="button" class="btn btn-success" id="generateReport">Generate</button>
-                            <button type="button" class="btn btn-primary" id="sendReport">Send Report</button>
-                            <input type="text" class="form-control" name="supp_email" id="supp_email" placeholder="Supervisor Email">
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox-title">
+                        <h5>Generate Report</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <table id="SendTask" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Description</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>Added By</th>
+                                    <th>Assigned to</th>
+                                    <th>Date Created</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-success" id="generateReport">Generate</button>
+                        <button type="button" class="btn btn-primary" id="sendReport">Send Report</button>
+                        <input type="text" class="form-control" name="supp_email" id="supp_email" placeholder="Supervisor Email">
+                    </div>
+                </div>
+            </div>
+
+</div>
 @endsection
 @section('tasks-index')
-
 <script>
 $(document).ready(function(){
     $('#MyTasks').DataTable({
@@ -246,7 +247,6 @@ $(document).ready(function(){
             {data: 'action', name: 'action'}
         ]
     });
-
 
     $('#MyDailyTasks').DataTable({
         processing: true,

@@ -266,7 +266,8 @@ class TaskController extends Controller
 
     public function generateReport()
     {
-      if(Auth::check() && Auth::user()->access_level == 1)
+      $tasks = '';
+      if(Auth::check())
       {
         $tasks = Task::join('users', 'tasks.added_by', '=', 'users.id')
             ->join('users AS x', 'x.id', '=', 'tasks.assigned_to')
@@ -279,23 +280,24 @@ class TaskController extends Controller
               'users.name',
               'x.name AS assign',
               'tasks.created_at'
-              ])->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -12 HOUR)')->get();
+              ])->where('tasks.assigned_to', '=', Auth::user()->id)
+            ->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -12 HOUR)')->get();
       }
-      else if(Auth::check())
-      {
-        $tasks = Task::join('users', 'tasks.added_by', '=', 'users.id')
-            ->join('users AS x', 'x.id', '=', 'tasks.assigned_to')
-            ->select([
-              'tasks.id',
-              'tasks.task_description',
-              'tasks.start_timestamp',
-              'tasks.end_timestamp',
-              'tasks.status',
-              'users.name',
-              'x.name AS assign',
-              'tasks.created_at'
-              ])->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -12 HOUR)')->get();
-      }
+      // else if(Auth::check())
+      // {
+      //   $tasks = Task::join('users', 'tasks.added_by', '=', 'users.id')
+      //       ->join('users AS x', 'x.id', '=', 'tasks.assigned_to')
+      //       ->select([
+      //         'tasks.id',
+      //         'tasks.task_description',
+      //         'tasks.start_timestamp',
+      //         'tasks.end_timestamp',
+      //         'tasks.status',
+      //         'users.name',
+      //         'x.name AS assign',
+      //         'tasks.created_at'
+      //         ])->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -12 HOUR)')->get();
+      // }
 
       return json_encode($tasks);
     }
