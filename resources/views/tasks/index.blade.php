@@ -19,6 +19,46 @@
 <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
+                    <div class="ibox-title">
+                        <h5>My Daily Tasks</small></h5>
+                        <div class="ibox-tools">
+
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                           
+                            
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                            <table id="MyDailyTasks" class="table table-striped table-bordered" cellspacing="0" width="100%">
+
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Description</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Added By</th>
+                                        <th>Assigned to</th>
+                                        <th>Date Created</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+
+
+                <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>My Additional Tasks</small></h5>
@@ -140,6 +180,8 @@
                                 </tbody>
                             </table>
                         </div>
+
+
                         <fieldset>
                             <legend>Generate Task Report</legend>
                         </fieldset>
