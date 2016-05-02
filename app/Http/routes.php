@@ -13,22 +13,22 @@
 
 Route::group(['middleware' => 'auth'], function()
 {
+
     Route::get('/', function () {
     	return view('home');
 	});
-
 	Route::get('home', function () {
 	    return view('home');
 	});
 
 	/* Reports Route */
+
 	Route::get('tasks-list', 'TaskController@getTasksList');
 	Route::get('daily-tasks-list', 'TaskController@getDailyTasksList');
 	Route::get('generate-report', 'TaskController@generateReport');
 	Route::get('generate-email', 'TaskController@generateEmail');
 
 });
-
 
 Route::get('config', function () {
     return view('config');

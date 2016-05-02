@@ -179,10 +179,10 @@
                             </table>
                         </div>
 
-
                         <fieldset>
                             <legend>Generate Task Report</legend>
                         </fieldset>
+
                         <div class="ibox-content">
                             <table id="SendTask" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
@@ -212,6 +212,7 @@
         </div>
 @endsection
 @section('tasks-index')
+
 <script>
 $(document).ready(function(){
     $('#MyTasks').DataTable({
@@ -245,6 +246,7 @@ $(document).ready(function(){
             {data: 'action', name: 'action'}
         ]
     });
+
 
     $('#MyDailyTasks').DataTable({
         processing: true,
