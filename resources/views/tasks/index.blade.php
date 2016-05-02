@@ -17,6 +17,7 @@
 </div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
+            @if(Auth::check() && Auth::user()->access_level != 1)
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox-title">
@@ -51,13 +52,19 @@
                     </div>
                 </div>
             </div>
+            @endif
 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
 
                         <div class="ibox-title">
-                            <h5>My Additional Tasks</small></h5>
+                            @if(Auth::check() && Auth::user()->access_level != 1)
+                                <h5>My Additional Tasks</small></h5>
+                            @else
+                                <h5>Recent Tasks</small></h5>    
+                            @endif
+                            
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -172,7 +179,7 @@
                     </div>
                 </div>
             </div>
-
+             @if(Auth::check() && Auth::user()->access_level != 1)
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox-title">
@@ -194,6 +201,7 @@
                                     <th>Description</th>
                                     <th>Start</th>
                                     <th>End</th>
+                                    <th>Hours</th>
                                     <th>Added By</th>
                                     <th>Assigned to</th>
                                     <th>Date Created</th>
@@ -210,6 +218,7 @@
                     </div>
                 </div>
             </div>
+            @endif
 
 </div>
 @endsection
@@ -328,12 +337,42 @@ $(document).ready(function(){
                         "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
                     }
                 });
-                $.each(myObj, function(key,value) {
+
+
+
+                $.each(myObj[0], function(key,value) {
+                    var date_start = new Date(value.start_timestamp);
+                    var date_end = new Date(value.end_timestamp);
+                    var milisec = Math.abs(date_end - date_start);
+                    var seconds = milisec / 1000;
+                    var hours = parseInt( seconds / 3600 );
+
                     t.row.add( [
                         value.id,
                         value.task_description,
                         value.start_timestamp,
                         value.end_timestamp,
+                        hours,
+                        value.name,
+                        value.assign,
+                        value.created_at,
+                        value.status
+                    ] ).draw();
+                });
+
+                $.each(myObj[1], function(key,value) {
+                    var date_start = new Date(value.start_timestamp);
+                    var date_end = new Date(value.end_timestamp);
+                    var milisec = Math.abs(date_end - date_start);
+                    var seconds = milisec / 1000;
+                    var hours = parseInt( seconds / 3600 );
+
+                    t.row.add( [
+                        value.id,
+                        value.task_description,
+                        value.start_timestamp,
+                        value.end_timestamp,
+                        hours,
                         value.name,
                         value.assign,
                         value.created_at,
@@ -366,6 +405,21 @@ $(document).ready(function(){
         }
         
     });
+
+    // function msToHMS( ms ) {
+    //     // 1- Convert to seconds:
+    //     var seconds = ms / 1000;
+    //     // 2- Extract hours:
+    //     var hours = parseInt( seconds / 3600 ); // 3,600 seconds in 1 hour
+    //     seconds = seconds % 3600; // seconds remaining after extracting hours
+    //     // 3- Extract minutes:
+    //     var minutes = parseInt( seconds / 60 ); // 60 seconds in 1 minute
+    //     // 4- Keep only seconds not extracted to minutes:
+    //     seconds = seconds % 60;
+        
+    //     var result = hours+":"+minutes+":"+seconds;
+    // }
+
    
 }); 
 </script>           

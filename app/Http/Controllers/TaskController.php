@@ -280,8 +280,24 @@ class TaskController extends Controller
               'users.name',
               'x.name AS assign',
               'tasks.created_at'
-              ])->where('tasks.assigned_to', '=', Auth::user()->id)
+              ])->where('tasks.is_daily', '=', 0)
+            ->where('tasks.assigned_to', '=', Auth::user()->id)
             ->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -12 HOUR)')->get();
+
+         $tasks_daily = Task::join('users', 'tasks.added_by', '=', 'users.id')
+            ->join('users AS x', 'x.id', '=', 'tasks.assigned_to')
+            ->select([
+              'tasks.id',
+              'tasks.task_description',
+              'tasks.start_timestamp',
+              'tasks.end_timestamp',
+              'tasks.status',
+              'users.name',
+              'x.name AS assign',
+              'tasks.created_at'
+              ])->where('tasks.is_daily', '=', 1)
+              ->where('tasks.assigned_to', '=', Auth::user()->id)
+            ->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -12 HOUR)')->get();   
       }
       // else if(Auth::check())
       // {
@@ -299,7 +315,7 @@ class TaskController extends Controller
       //         ])->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -12 HOUR)')->get();
       // }
 
-      return json_encode($tasks);
+      return json_encode(array($tasks, $tasks_daily));
     }
 
     public function generateEmail()
@@ -318,7 +334,7 @@ class TaskController extends Controller
                     'date' => date('l jS \of F Y h:i:s A')
 
                     ], function ($m) use ($emails) {
-                    $m->to($emails, '')->subject('Daily Time Sheet');
+                    $m->to($emails, '')->subject('Daily Time Sheet - '.Auth::user()->name);
                 });
     }
 
