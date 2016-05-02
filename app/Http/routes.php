@@ -19,8 +19,13 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::get('home', function () {
 	    return view('home');
-
 	});
+
+	/* Reports Route */
+	Route::get('tasks-list', 'TaskController@getTasksList');
+	Route::get('generate-report', 'TaskController@generateReport');
+	Route::get('generate-email', 'TaskController@generateEmail');
+
 });
 
 
@@ -34,11 +39,8 @@ Route::controllers([
 ]);
 
 Route::resource('tasks', 'TaskController');
-/* Reports Route */
-Route::get('tasks-list', 'TaskController@getTasksList');
-Route::get('generate-report', 'TaskController@generateReport');
-Route::get('generate-email', 'TaskController@generateEmail');
-
 
 /* Dashboard Route */
 Route::get('get-barchart', 'TaskController@getBarChart');
+Route::get('get-piechart', 'TaskController@getPieChart');
+

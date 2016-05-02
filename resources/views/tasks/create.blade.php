@@ -74,12 +74,23 @@
                                             </div>
                                       </div>
                                       
-                                      <div class="form-group" style="">
+                                      <!-- <div class="form-group" style="">
                                             <label  class="col-sm-2 control-label">Custom Timestamp</label>
                                             <div class="col-lg-10">
                                                 <input type="text" class="form-control" name="fixed_timestamp" placeholder="e.g Daily">
                                             </div>
-                                      </div>
+                                      </div> -->
+
+                                      <div class="form-group" style="">
+                                            <label  class="col-sm-2 control-label">Is task daily?</label>
+                                            <div class="col-lg-10">
+                                                <select name="is_daily" id="is_daily" class="form-control">
+                                                    <option value=""></option>
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                </select>
+                                            </div>
+                                      </div
                                       
                                       @if(Auth::check() && Auth::user()->access_level == 1)
                                         <div class="form-group">

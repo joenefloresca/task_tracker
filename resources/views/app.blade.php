@@ -152,7 +152,7 @@
     <script src="{{ asset('js/plugins/flot/jquery.flot.time.js') }}"></script>
 
     <script>
-        $("body").addClass("skin-2");
+        $("body").addClass("skin-1");
     </script>
 
     @yield('home')

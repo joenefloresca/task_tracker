@@ -82,6 +82,7 @@ class TaskController extends Controller
             $task->start_timestamp             = Input::get("start_timestamp");
             $task->end_timestamp               = Input::get("end_timestamp");
             $task->fixed_timestamp             = Input::get("fixed_timestamp");
+            $task->is_daily                    = Input::get("is_daily");
             $task->added_by                    = Auth::user()->id;
             $task->assigned_to                 = $assign;
             $task->signature                   = Input::get("signature");  
@@ -187,7 +188,7 @@ class TaskController extends Controller
               'users.name',
               'x.name AS assign',
               'tasks.created_at'
-              ]);
+              ])->where('tasks.is_daily', '=', 0);
       }
       else if(Auth::check())
       {
@@ -202,7 +203,8 @@ class TaskController extends Controller
               'users.name',
               'x.name AS assign',
               'tasks.created_at'
-              ])->where('tasks.assigned_to', '=', Auth::user()->id);
+              ])->where('tasks.is_daily', '=', 0)
+            ->where('tasks.assigned_to', '=', Auth::user()->id);
       }
       else
       {
@@ -307,5 +309,11 @@ class TaskController extends Controller
             'last1' => array($last1,$data1[0]->total1)
         );
        
+    }
+
+    public function getPieChart()
+    {
+      $query = "SELECT COUNT(status = 'Done' OR NULL) as done, COUNT(status = 'Pending' OR NULL) as pending FROM tasks;";
+      return DB::connection('mysql')->select($query);
     }
 }

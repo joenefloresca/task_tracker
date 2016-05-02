@@ -57,7 +57,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Total Tasks For The Last 6 Days</h5>
+                    <h5>Total Done and Pending Tasks</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="ibox-content">
                     <div class="flot-chart">
-                        <div class="flot-chart-content" id="flot-line-chart"></div>
+                        <div class="flot-chart-content" id="flot-pie-chart"></div>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
 
 <script>
 $(document).ready(function(){
-    
+//Flot Bar Chart    
 $.ajax({
     url: "get-barchart",
     type: 'GET',
@@ -125,7 +125,7 @@ $.ajax({
         },
         yaxis: {                
             tickFormatter: function (v, axis) {
-                return "£ " + v;
+                return v;
             }
         },    
         colors: ["#1ab394"],
@@ -156,6 +156,46 @@ $.ajax({
         ]
     };
     $.plot($("#flot-bar-chart"), [barData], barOptions);
+
+}});
+
+//Flot Pie Chart
+$.ajax({
+    url: "get-piechart",
+    type: 'GET',
+    success: function(result){
+    console.log(result[0].done);    
+    console.log(result[0].pending);    
+
+    var data = [{
+        label: "Done",
+        data: result[0].done,
+        color: "#00BCD4",
+    }, {
+        label: "Pending",
+        data: result[0].pending,
+        color: "#CDDC39",
+    }];
+
+    var plotObj = $.plot($("#flot-pie-chart"), data, {
+        series: {
+            pie: {
+                show: true
+            }
+        },
+        grid: {
+            hoverable: true
+        },
+        tooltip: true,
+        tooltipOpts: {
+            content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+            shifts: {
+                x: 20,
+                y: 0
+            },
+            defaultTheme: false
+        }
+    });
 
 }});
 
