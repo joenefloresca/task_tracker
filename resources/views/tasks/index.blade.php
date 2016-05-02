@@ -60,19 +60,17 @@
 
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
+
                         <div class="ibox-title">
                             <h5>My Additional Tasks</small></h5>
                             <div class="ibox-tools">
-
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
-                               
                                 
                                 <a class="close-link">
                                     <i class="fa fa-times"></i>
                                 </a>
-
                             </div>
                         </div>
                         
@@ -247,6 +245,40 @@ $(document).ready(function(){
             {data: 'action', name: 'action'}
         ]
     });
+
+    $('#MyDailyTasks').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: 'job-index',
+        "order": [[ 0, "desc" ]],
+        "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+        },
+        ajax: 'daily-tasks-list',
+         "createdRow": function ( row, data, index ) {
+            if (data.status == "Pending") {
+                $('td', row).eq(7).addClass('text-warning');
+            }
+            else
+            {
+                $('td', row).eq(7).addClass('text-success');
+            }
+        },
+        columns: [
+            {data: 'id', name: 'tasks.id'},
+            {data: 'task_description', name: 'tasks.task_description'},
+            {data: 'start_timestamp', name: 'tasks.start_timestamp'},
+            {data: 'end_timestamp', name: 'tasks.end_timestamp'},
+            {data: 'name', name: 'users.name'},
+            {data: 'assign', name: 'x.name'},
+            {data: 'created_at', name: 'tasks.created_at'},
+            {data: 'status', name: 'tasks.status'},
+            {data: 'action', name: 'action'}
+        ]
+    });
+
+
 
     $('#myModal').on('show.bs.modal', function (e) {
         var uniqueId = $(e.relatedTarget).data('id');

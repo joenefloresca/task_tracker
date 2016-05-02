@@ -217,6 +217,53 @@ class TaskController extends Controller
             })->make(true);     
     }
 
+
+
+    public function getDailyTasksList()
+    {
+      if(Auth::check() && Auth::user()->access_level == 1)
+      {
+        $tasks = Task::join('users', 'tasks.added_by', '=', 'users.id')
+            ->join('users AS x', 'x.id', '=', 'tasks.assigned_to')
+            ->select([
+              'tasks.id',
+              'tasks.task_description',
+              'tasks.start_timestamp',
+              'tasks.end_timestamp',
+              'tasks.status',
+              'users.name',
+              'x.name AS assign',
+              'tasks.created_at'
+              ])->where('tasks.is_daily', '=', 1);
+      }
+      else if(Auth::check())
+      {
+        $tasks = Task::join('users', 'tasks.added_by', '=', 'users.id')
+            ->join('users AS x', 'x.id', '=', 'tasks.assigned_to')
+            ->select([
+              'tasks.id',
+              'tasks.task_description',
+              'tasks.start_timestamp',
+              'tasks.end_timestamp',
+              'tasks.status',
+              'users.name',
+              'x.name AS assign',
+              'tasks.created_at'
+              ])->where('tasks.is_daily', '=', 1)
+            ->where('tasks.assigned_to', '=', Auth::user()->id);
+      }
+      else
+      {
+        $tasks = "";
+      }
+      
+       return Datatables::of($tasks)
+       ->addColumn('action', function ($tasks) {
+                return "<button type='button' data-id='".$tasks->id."' class='btn btn-xs btn-success' data-toggle='modal' data-target='#myModal'>Details</button>";
+            })->make(true);     
+    }
+
+
     public function generateReport()
     {
       if(Auth::check() && Auth::user()->access_level == 1)
@@ -232,7 +279,7 @@ class TaskController extends Controller
               'users.name',
               'x.name AS assign',
               'tasks.created_at'
-              ])->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -8 HOUR)')->get();
+              ])->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -12 HOUR)')->get();
       }
       else if(Auth::check())
       {
@@ -247,7 +294,7 @@ class TaskController extends Controller
               'users.name',
               'x.name AS assign',
               'tasks.created_at'
-              ])->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -8 HOUR)')->get();
+              ])->whereRaw('tasks.created_at > DATE_ADD(NOW(), INTERVAL -12 HOUR)')->get();
       }
 
       return json_encode($tasks);
