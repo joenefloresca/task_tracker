@@ -61,12 +61,12 @@
                         IN+
                     </div>
                 </li>
-                 @if(Auth::check())
+                @if(Auth::check() && Auth::user()->access_level == 1)
                 <li>
                     <a href="{{ url('home') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li> 
-               
-                
+                @endif
+                 @if(Auth::check())
                 <li>
                     <a href="#"><i class="fa fa-credit-card"></i> <span class="nav-label">Tasks</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">

@@ -83,7 +83,7 @@ CREATE TABLE `tasks` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +92,7 @@ CREATE TABLE `tasks` (
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
-INSERT INTO `tasks` VALUES (1,'Upload WP to the Leads Table and Email the Client','2016-04-29 15:00:00','2016-04-29 19:00:00','',1,1,0,'Done','Joene Floresca','2016-04-29 15:25:40','2016-04-29 15:32:15'),(2,'Make some changes in WP Upload Tool','2016-04-30 15:34:00','2016-04-29 15:34:00','',1,1,0,'Done','Joene Floresca','2016-04-29 15:34:33','2016-04-29 15:58:25'),(3,'Worked on Users Module Tasks Tracker','2016-04-29 15:35:00','2016-04-30 15:35:00','',1,1,0,'Done','Joene Floresca','2016-04-29 15:35:43','2016-04-29 15:58:19'),(4,'Worked on Email Sending in Tasks Tracker','2016-04-29 15:36:00','2016-04-29 21:00:00','',1,1,0,'Pending','Joene Floresca','2016-04-29 15:36:34','2016-04-29 17:00:52'),(5,'Worked on Report Generator Tasks Tracker','2016-04-29 15:37:00','2016-04-30 15:37:00','',1,1,0,'Done','Joene Floresca','2016-04-29 15:37:42','2016-04-29 15:58:06'),(6,'Added files on new project','2016-04-29 15:41:00','2016-04-30 15:41:00','',1,1,0,'Done','Joene Floresca','2016-04-29 15:41:19','2016-04-29 15:48:11'),(7,'Finish BRK Website','2016-04-29 15:55:00','2016-04-30 15:55:00','',2,1,0,'Pending','Krishna Rao','2016-04-29 15:55:22','2016-04-29 16:03:44'),(8,'TEST','2016-05-02 19:09:00','2016-05-20 19:09:00','',1,1,0,'Pending','TEST','2016-05-02 19:09:29','2016-05-02 19:09:29'),(9,'TEST TEST','2016-05-02 19:09:00','2016-05-02 23:00:00','',1,1,0,'Pending','TEST','2016-05-02 19:09:41','2016-05-02 19:09:41'),(10,'TEST','2016-05-02 20:06:00','2016-05-19 20:06:00','',1,1,0,'Done','TEST','2016-05-02 20:06:15','2016-05-02 20:08:39'),(11,'TEST','2016-05-02 21:19:00','2016-05-13 21:19:00',NULL,1,1,1,'Pending','TEST','2016-05-02 21:19:30','2016-05-02 21:19:30');
+INSERT INTO `tasks` VALUES (1,'My Task','2016-05-02 15:00:00','2016-05-02 20:00:00',NULL,1,1,1,'Pending','TEST','2016-05-02 23:12:32','2016-05-02 23:12:32');
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,7 +126,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Joene Floresca','$2y$10$5vuLHHvekpZ2/VxrDIZCmem557S9yhzPW.F77ZYcOe1aJVFuEXm.e',0,1775,'1775','IT','QnFtu8r6L8SpSdwgVn6iIOj4btyYTw0u7OHgiRlHfdfSoiGTvjUgE1fenkLv','2016-02-29 01:03:22','2016-05-02 12:05:30'),(2,'Raven','$2y$10$PYAHrxbwqwhJgWoUcNGjiudH.IaRUFgQrne0PogMcMhIiduK0fmCW',0,1935,'','','fkc60Wm4DS8Gqhi9V9q5VTe1Ur9jl29hnSUIKvCXKqoxKsWtZodNswMvpnBW','2016-03-14 01:10:50','2016-04-29 07:55:46');
+INSERT INTO `users` VALUES (1,'Joene Floresca','$2y$10$5vuLHHvekpZ2/VxrDIZCmem557S9yhzPW.F77ZYcOe1aJVFuEXm.e',0,1775,'1775','IT','oS0jAEd5ew6irTpVlMtNnQMXebya753CZ3pSl16GulBQeVaXdStXccZftz51','2016-02-29 01:03:22','2016-05-03 07:00:45'),(2,'Raven','$2y$10$PYAHrxbwqwhJgWoUcNGjiudH.IaRUFgQrne0PogMcMhIiduK0fmCW',0,1935,'','','fkc60Wm4DS8Gqhi9V9q5VTe1Ur9jl29hnSUIKvCXKqoxKsWtZodNswMvpnBW','2016-03-14 01:10:50','2016-04-29 07:55:46');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -139,4 +139,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-02 21:33:56
+-- Dump completed on 2016-05-03 15:29:43

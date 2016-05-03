@@ -211,6 +211,14 @@
 
                             <tbody>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th colspan="2">Total Hours</th>
+                                    <th id="totalhours"></th>
+                                </tr>
+                            </tfoot>
                         </table>
                         <button type="button" class="btn btn-success" id="generateReport">Generate</button>
                         <button type="button" class="btn btn-primary" id="sendReport">Send Report</button>
@@ -339,14 +347,14 @@ $(document).ready(function(){
                 });
 
 
-
+                var totalhours = 0;
                 $.each(myObj[0], function(key,value) {
                     var date_start = new Date(value.start_timestamp);
                     var date_end = new Date(value.end_timestamp);
                     var milisec = Math.abs(date_end - date_start);
                     var seconds = milisec / 1000;
                     var hours = parseInt( seconds / 3600 );
-
+                    totalhours += hours;
                     t.row.add( [
                         value.id,
                         value.task_description,
@@ -366,7 +374,7 @@ $(document).ready(function(){
                     var milisec = Math.abs(date_end - date_start);
                     var seconds = milisec / 1000;
                     var hours = parseInt( seconds / 3600 );
-
+                    totalhours += hours;
                     t.row.add( [
                         value.id,
                         value.task_description,
@@ -379,6 +387,8 @@ $(document).ready(function(){
                         value.status
                     ] ).draw();
                 });
+
+                $('#totalhours').text(totalhours);
 
                 alert("Tasks from the last 8 hours generated.");
             }
