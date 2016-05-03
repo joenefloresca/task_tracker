@@ -34,6 +34,10 @@ Everyday, before leaving, you will generate and submit your task report to the s
 
 - No, once you added a task, the only thing you can change is its status (Pending or Done).
 
+* How many tasks I can add per day?
+
+- There's no limit for adding tasks, just assign it accordingly (Either Daily or Additional)
+
 * Can I generate and send a report if some of my task is still pending?
 
 - Yes, some tasks requires more than 1 day to finish.
