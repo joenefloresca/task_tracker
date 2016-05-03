@@ -74,6 +74,9 @@
                         <li class="active"><a href="{{ url('tasks/create') }}">Add Task</a></li>  
                     </ul>
                 </li>
+                <li>
+                    <a href="{{ url('home') }}"><i class="fa fa-question-circle"></i> <span class="nav-label">Help</span></a>
+                </li> 
                  @endif
    
             </ul>
