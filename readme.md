@@ -23,28 +23,28 @@ Everyday, before leaving, you will generate and submit your task report to the s
 
 * Why there are separate task type (Daily and Additional Task)?
 
-- Daily task is there so that you don't have to enter the task that you are doing everyday.
-- Additional task are tasks that you are not doing everyday. e.g Task added by Supervisor. You can also added your addiional task.
+	- Daily task is there so that you don't have to enter the task that you are doing everyday.
+	- Additional task are tasks that you are not doing everyday. e.g Task added by Supervisor. You can also added your addiional task.
 
 * Why is it that the time frame for getting the additional tasks is within the last 12 hours?
 
-- Usually a typical work hours is 8, but the system will set it as 12 for people who are extending work hours.
+	- Usually a typical work hours is 8, but the system will set it as 12 for people who are extending work hours.
 
 * Can I edit my added task?
 
-- No, once you added a task, the only thing you can change is its status (Pending or Done).
+	- No, once you added a task, the only thing you can change is its status (Pending or Done).
 
 * How many tasks I can add per day?
 
-- There's no limit for adding tasks, just assign it accordingly (Either Daily or Additional)
+	- There's no limit for adding tasks, just assign it accordingly (Either Daily or Additional)
 
 * Can I generate and send a report if some of my task is still pending?
 
-- Yes, some tasks requires more than 1 day to finish.
+	- Yes, some tasks requires more than 1 day to finish.
 
 * How will the system send the report to the supervisor?
 
-- Via Email
+	- Via Email.
 
 
 ## Contact Person
