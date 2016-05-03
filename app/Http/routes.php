@@ -22,11 +22,12 @@ Route::group(['middleware' => 'auth'], function()
 	});
 
 	/* Reports Route */
-
 	Route::get('tasks-list', 'TaskController@getTasksList');
 	Route::get('daily-tasks-list', 'TaskController@getDailyTasksList');
 	Route::get('generate-report', 'TaskController@generateReport');
 	Route::get('generate-email', 'TaskController@generateEmail');
+
+	Route::get('help', 'TaskController@showHelpPage');
 
 });
 

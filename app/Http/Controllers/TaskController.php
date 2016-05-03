@@ -381,4 +381,9 @@ class TaskController extends Controller
       $query = "SELECT COUNT(status = 'Done' OR NULL) as done, COUNT(status = 'Pending' OR NULL) as pending FROM tasks;";
       return DB::connection('mysql')->select($query);
     }
+
+    public function showHelpPage()
+    {
+      return view('tasks.help');
+    }
 }

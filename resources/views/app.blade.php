@@ -75,7 +75,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ url('home') }}"><i class="fa fa-question-circle"></i> <span class="nav-label">Help</span></a>
+                    <a href="{{ url('help') }}"><i class="fa fa-question-circle"></i> <span class="nav-label">Help</span></a>
                 </li> 
                  @endif
    
