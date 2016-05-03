@@ -102,12 +102,13 @@
                                       @endif
                                       
 
-                                      <div class="form-group">
+                                      <!-- <div class="form-group">
                                             <label  class="col-sm-2 control-label">Signature</label>
                                             <div class="col-lg-10">
                                                 <input type="text" class="form-control" name="signature">
                                             </div>
-                                      </div>
+                                      </div> -->
+                                      
                                 </fieldset>
                                 
                                 <div class="form-group">

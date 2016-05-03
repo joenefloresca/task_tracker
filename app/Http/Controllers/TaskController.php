@@ -85,7 +85,7 @@ class TaskController extends Controller
             $task->is_daily                    = Input::get("is_daily");
             $task->added_by                    = Auth::user()->id;
             $task->assigned_to                 = $assign;
-            $task->signature                   = Input::get("signature");  
+            $task->signature                   = Auth::user()->name; //Input::get("signature");  
             if($task->save())
             {
                 Session::flash('alert-success', 'Form Submitted Successfully.');

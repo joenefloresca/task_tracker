@@ -51,4 +51,10 @@ Everyday, before leaving, you will generate and submit your task report to the s
 
 If you discover a glitch or error in the system, you can report it to mis@qdf-phils.com
 
+## How to report error or glitches
+
+* Screenshot the error message (if any)
+* Describe the process that you are doing when the error occured
+* Email it to mis@qdf-phils.com
+
 
